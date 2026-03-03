@@ -1,5 +1,7 @@
-
 services:
+  # ==================================================
+  # Web (Reverse Proxy)
+  # ==================================================
   nginx:
     image: nginx:1.25-alpine
     platform: linux/amd64
@@ -11,11 +13,17 @@ services:
     depends_on:
       - php
 
+  # ==================================================
+  # App (PHP-FPM / Laravel)
+  # ==================================================
   php:
     build: ./docker/php
     volumes:
       - ./src:/var/www/
 
+  # ==================================================
+  # DB (MySQL)
+  # ==================================================
   mysql:
     image: mysql:8.0
     platform: linux/amd64
@@ -31,6 +39,9 @@ services:
       - mysql-data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
+  # ==================================================
+  # DB Admin (phpMyAdmin)
+  # ==================================================
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
@@ -42,6 +53,15 @@ services:
       - mysql
     ports:
       - "8080:80"
+
+  # ==================================================
+  # Mail (MailHog)
+  # ==================================================
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
 
 volumes:
   mysql-data:
