@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendance_correction_requests', function (Blueprint $table) {
+        Schema::create('attendance_corrections', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('attendance_id')
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
-
-            $table->date('work_date');
 
             $table->dateTime('requested_clock_in')->nullable();
             $table->dateTime('requested_clock_out')->nullable();
@@ -45,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendance_correction_requests');
+        Schema::dropIfExists('attendance_corrections');
     }
 };
