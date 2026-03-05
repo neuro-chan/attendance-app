@@ -10,33 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('attendance_corrections', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('attendance_id')
-                ->constrained('attendances')
-                ->cascadeOnDelete();
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->dateTime('requested_clock_in')->nullable();
-            $table->dateTime('requested_clock_out')->nullable();
-            $table->string('requested_note', 255)->nullable();
-
-            $table->tinyInteger('status')->default(0);
-
-            $table->foreignId('approved_by')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
-
-            $table->timestamp('approved_at')->nullable();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('attendance_corrections', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->dateTime('requested_clock_in')->nullable();
+        $table->dateTime('requested_clock_out')->nullable();
+        $table->string('requested_note')->nullable();
+        $table->tinyInteger('status')->default(0);
+        $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->timestamp('approved_at')->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

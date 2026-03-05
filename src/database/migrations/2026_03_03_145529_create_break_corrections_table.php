@@ -10,25 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('break_corrections', function (Blueprint $table) {
-            $table->id();
+{
+    Schema::create('break_corrections', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('correction_id')
+              ->constrained('attendance_corrections')
+              ->cascadeOnDelete();
 
-            $table->foreignId('correction_request_id')
-                ->constrained('attendance_corrections')
-                ->cascadeOnDelete();
+        $table->foreignId('break_id')
+              ->nullable()
+              ->constrained('breaktimes')
+              ->nullOnDelete();
 
-            $table->foreignId('break_id')
-                ->nullable()
-                ->constrained('breaks')
-                ->nullOnDelete();
-
-            $table->dateTime('requested_break_start');
-            $table->dateTime('requested_break_end')->nullable();
-
-            $table->timestamps();
-        });
-    }
+        $table->dateTime('requested_break_start');
+        $table->dateTime('requested_break_end')->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
