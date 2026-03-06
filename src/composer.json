@@ -67,6 +67,13 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "lint:names": [
+            "@php check-filenames.php"
+        ],
+        "lint": [
+            "@lint:names",
+            "vendor/bin/pint --test"
         ]
     },
     "extra": {
