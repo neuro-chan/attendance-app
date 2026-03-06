@@ -1,0 +1,141 @@
+/* ログイン・会員登録・メール認証画面共通 */
+
+.auth {
+    padding: 80px 16px;
+}
+
+.auth__title {
+    text-align: center;
+    margin: 0 0 32px;
+}
+
+.auth__form {
+    width: 680px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.auth__field {
+    margin: 0 0 60px;
+}
+
+.auth__label {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.auth__input {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #999;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px solid;
+    border-radius: 6px;
+}
+
+.auth__button {
+    width: 680px;
+    max-width: 100%;
+    height: 60px;
+    display: block;
+    margin-top: 100px;
+    background: #000;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    border: 0;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.auth__button:hover {
+    opacity: 0.9;
+}
+
+.auth__link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 18px;
+    color: #0073cc;
+    text-decoration: none;
+}
+
+.auth__link:hover {
+    text-decoration: underline;
+}
+
+.auth__errors {
+    width: 680px;
+    max-width: 100%;
+    margin: 0 auto 16px;
+}
+
+/* 会員登録 */
+.auth--register .auth__input {
+    height: 45px;
+}
+
+
+/* メール認証画面 */
+.email-verify__actions {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    background-color: #ffffff;
+    padding: 100px 0px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+}
+
+.email-verify__message {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.email-verify__button {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px 30px;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    border: 1px solid #333;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    color: #000;
+    cursor: pointer;
+}
+
+.email-verify__button:hover {
+    background-color: #c0c0c0;
+}
+
+.email-verify__resend {
+    background: none;
+    border: none;
+    text-align: center;
+    color: #4a90e2;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+}
+
+.email-verify__resend:hover {
+    opacity: 0.8;
+}
+
+.email-verify__notice.success {
+    color: #ff4444;
+}
