@@ -18,7 +18,7 @@
 .phpactor.json
 .php-cs-fixer.cache
 .pint.cache
-/check-filenames.php
+/src/check-filenames.php
 
 # =============================================================================
 # PHPUnit
