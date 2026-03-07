@@ -1,9 +1,8 @@
-/* アプリ共通 */
 html,
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Inter Tight", sans-serif;
 }
 
 /* .header {

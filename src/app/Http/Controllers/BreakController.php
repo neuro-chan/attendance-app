@@ -2,35 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Attendance\ClockInAction;
-use App\Actions\Attendance\ClockOutAction;
-use App\Models\Attendance;
+use App\Actions\Attendance\EndBreakAction;
+use App\Actions\Attendance\StartBreakAction;
 use App\Models\User;
 use DomainException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
-class AttendanceController extends Controller
+class BreakController extends Controller
 {
-    public function record(): View
-    {
-        $attendance = Attendance::firstOrNew([
-            'user_id' => Auth::id(),
-            'work_date' => today(),
-        ]);
-
-        $status = $attendance->status->value;
-
-        return view('staff.record', [
-            'attendance' => $attendance,
-            'status' => $status,
-            'now' => now(),
-        ]);
-    }
-
-    // 出勤打刻
-    public function clockIn(ClockInAction $action): RedirectResponse
+    // 休憩開始
+    public function start(StartBreakAction $action): RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
@@ -40,7 +22,7 @@ class AttendanceController extends Controller
 
             return redirect()
                 ->route('attendance.record')
-                ->with('status', '出勤を登録しました。');
+                ->with('status', '休憩を開始しました。');
         } catch (DomainException $e) {
             return redirect()
                 ->route('attendance.record')
@@ -50,8 +32,8 @@ class AttendanceController extends Controller
         }
     }
 
-    // 退勤打刻
-    public function clockOut(ClockOutAction $action): RedirectResponse
+    // 休憩終了
+    public function end(EndBreakAction $action): RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
@@ -61,7 +43,7 @@ class AttendanceController extends Controller
 
             return redirect()
                 ->route('attendance.record')
-                ->with('status', '退勤を登録しました。');
+                ->with('status', '休憩を終了しました。');
         } catch (DomainException $e) {
             return redirect()
                 ->route('attendance.record')

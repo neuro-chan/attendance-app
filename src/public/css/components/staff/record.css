@@ -1,0 +1,96 @@
+.attendance-record {
+    min-height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 160px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f0eff2;
+}
+
+/* ========================================
+   Status badge
+======================================== */
+.attendance-status-badge {
+    display: inline-block;
+    margin: 0 0 32px;
+    padding: 8px 16px 8px 20px;
+    border-radius: 9999px;
+    background: #c8c8c8;
+    color: #696969;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1;
+}
+
+/* ========================================
+   Date time display
+======================================== */
+.attendance-date-time {
+    text-align: center;
+}
+
+.attendance-date-time__date {
+    margin: 0 0 24px;
+    color: #000;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.attendance-date-time__time {
+    margin: 0 0 64px;
+    color: #000;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.05em;
+}
+
+/* ========================================
+   Action buttons
+======================================== */
+.attendance-action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+}
+
+.attendance-action-buttons form {
+    margin: 0;
+}
+
+.attendance-button {
+    min-width: 220px;
+    height: 72px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 16px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+}
+
+.attendance-button--primary {
+    background: #000;
+    color: #fff;
+}
+
+.attendance-button--secondary {
+    background: #fff;
+    color: #000;
+}
+
+.attendance-action-buttons__message {
+    margin: 0;
+    color: #000;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    letter-spacing: 0.3em;
+}
