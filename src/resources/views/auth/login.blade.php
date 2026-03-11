@@ -13,7 +13,7 @@
     @endphp
 
     <div class="auth">
-        <h2 class="auth__title">{{ $titleText }}</h2>
+        <h1 class="auth__title">{{ $titleText }}</h1>
 
         <form class="auth__form" method="POST" action="{{ $postUrl }}" novalidate>
             @csrf

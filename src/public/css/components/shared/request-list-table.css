@@ -1,0 +1,98 @@
+
+.request-list {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 80px 20px 80px;
+}
+
+/* タブ */
+.request-list-tabs {
+    width: 900px;
+    max-width: 100%;
+    margin: 0 auto 32px;
+    display: flex;
+    gap: 48px;
+    border-bottom: 2px solid #9a9a9a;
+}
+
+.request-list-tabs__tab {
+    display: inline-block;
+    padding: 12px 0px 12px 52px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    position: relative;
+}
+
+.request-list-tabs__tab:hover {
+    opacity: 0.8;
+}
+
+.request-list-tabs__tab--active {
+    font-weight: 700;
+}
+
+/* テーブル */
+.request-list__title {
+    margin: 0 0 40px;
+    padding-left: 18px;
+    border-left: 6px solid #000;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.request-list-table {
+    width: 900px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.request-list__header {
+    padding: 14px 16px;
+        border-bottom: 2px solid #e5e5e5;
+        text-align: center;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        color: #737373;
+    font-weight: 700;
+    background: #fff;
+}
+
+.request-list__data {
+    padding: 14px 16px;
+    border-bottom: 2px solid #e5e5e5;
+    text-align: center;
+}
+
+.request-list__header:nth-child(n+2):nth-child(-n+5),
+.request-list__data:nth-child(n+2):nth-child(-n+5) {
+    text-align: left;
+}
+
+.request-list__head .request-list__row {
+    border-bottom: 4px solid #e5e5e5;
+}
+
+.request-list__data {
+    color: #737373;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+}
+
+.request-list__detail-link {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.request-list__data--reason {
+    text-align: left;
+    letter-spacing: 0.12em;
+}

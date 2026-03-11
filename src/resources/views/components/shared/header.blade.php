@@ -1,7 +1,7 @@
 <header class="header">
     <div class="header__inner">
-        <a class="header__brand" href="#">
-            <img class="header__logo" src="{{ asset('img/logo.png') }}" alt="COACHTECH">
+        <a href="{{ route('attendance.record') }}" class="header__link">
+            <img class="header__logo" src="{{ asset('img/logo.png') }}" alt="COACHTECHロゴ">
         </a>
 
         @auth
@@ -19,13 +19,13 @@
                         </li>
                     @else
                         <li class="header__item">
-                            <a class="header__link" href="#">勤怠</a>
+                            <a href="{{ route('attendance.record') }}" class="header__link">勤怠</a>
                         </li>
                         <li class="header__item">
-                            <a class="header__link" href="#">勤怠一覧</a>
+                            <a href="{{ route('staff.index') }}" class="header__link">勤怠一覧</a>
                         </li>
                         <li class="header__item">
-                            <a class="header__link" href="#">申請</a>
+                            <a href="{{ route('request.index') }}" class="header__link">申請</a>
                         </li>
                     @endif
 
