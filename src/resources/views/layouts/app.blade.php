@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/components/shared/header.css') }}">
 
     <!-- fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,9 +23,9 @@
 </head>
 
 <body>
-    @include('components.header')
+    @include('components.shared.header')
 
-    <main class="l-main">
+    <main class="app-main">
         @yield('content')
     </main>
 

@@ -1,7 +1,9 @@
 /* ログイン・会員登録・メール認証画面共通 */
 
 .auth {
+    min-height: calc(100vh - 80px);
     padding: 80px 16px;
+    background: #fff;
 }
 
 .auth__title {

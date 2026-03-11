@@ -1,0 +1,43 @@
+
+.month-navigation {
+    width: 900px;
+    height: 60px;
+    box-sizing: border-box;
+    margin: 0 auto 40px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.month-navigation__link {
+    color: #737373;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s ease;
+}
+
+.month-navigation__link:hover {
+    color: #000;
+}
+
+.month-navigation__current {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.month-navigation__text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.month-navigation__icon {
+    width: 25px;
+    height: 25px;
+}

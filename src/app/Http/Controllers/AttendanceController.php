@@ -7,26 +7,58 @@ use App\Actions\Attendance\ClockOutAction;
 use App\Models\Attendance;
 use App\Models\User;
 use DomainException;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AttendanceController extends Controller
 {
+
+    public function index(Request $request): View
+    {
+        $currentMonth = $request->filled('month')
+            ? Carbon::createFromFormat('Y-m', $request->string('month'))->startOfMonth()
+            : Carbon::today()->startOfMonth();
+
+        $attendances = Attendance::where('user_id', Auth::id())
+            ->forMonth($currentMonth->year, $currentMonth->month)
+            ->orderBy('work_date')
+            ->get();
+
+        return view('staff.index', [
+            'attendances'      => $attendances,
+            'currentMonth'     => $currentMonth->format('Y/m'),
+            'previousMonthUrl' => route('staff.index', ['month' => $currentMonth->copy()->subMonth()->format('Y-m')]),
+            'nextMonthUrl'     => route('staff.index', ['month' => $currentMonth->copy()->addMonth()->format('Y-m')]),
+        ]);
+    }
+
+    // 打刻画面
     public function record(): View
     {
         $attendance = Attendance::firstOrNew([
-            'user_id' => Auth::id(),
+            'user_id'   => Auth::id(),
             'work_date' => today(),
         ]);
 
         $status = $attendance->status->value;
+        $now    = now();
 
-        return view('staff.record', [
-            'attendance' => $attendance,
-            'status' => $status,
-            'now' => now(),
-        ]);
+        return view('staff.record', compact('attendance', 'status', 'now'));
+    }
+
+    // 勤怠詳細
+    public function show(int $id): View
+    {
+        $attendance = Attendance::with('breakTimes')
+            ->where('user_id', Auth::id())
+            ->findOrFail($id);
+
+        $isPending = $attendance->hasPendingRequest();
+
+        return view('staff.show', compact('attendance', 'isPending'));
     }
 
     // 出勤打刻

@@ -8,7 +8,11 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Responses\LoginResponse;
+
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +27,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // カスタムLoginRequestをバインド
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+        $this->app->bind(LoginResponseContract::class, LoginResponse::class);
     }
 
     public function boot(): void

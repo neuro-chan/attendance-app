@@ -74,8 +74,8 @@ class Attendance extends Model
         return AttendanceStatus::Working;
     }
 
-    // 申請ステータス判定
-    public function hasPendingCorrection(): bool
+    // 申請判定
+    public function hasPendingRequest(): bool
     {
         return $this->corrections()->pending()->exists();
     }

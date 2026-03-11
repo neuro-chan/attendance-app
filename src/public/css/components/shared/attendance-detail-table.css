@@ -1,0 +1,128 @@
+
+.attendance-detail {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 80px 20px 80px;
+}
+
+.detail-table {
+    color: #000;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.attendance-detail__title {
+    margin: 0 0 40px;
+    padding-left: 18px;
+    border-left: 6px solid #000;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.attendance-detail-table {
+    width: 900px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.attendance-detail-table__row {
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.attendance-detail-table__date { display: flex; align-items: center; gap: 75px; padding-left: 20px; }
+
+
+.attendance-detail-table__label,
+.attendance-detail-table__value {
+    padding: 24px 0px 28px 52px;
+    font-size: 16px;
+    text-align: left;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    background: #fff;
+    vertical-align: middle;
+}
+
+.attendance-detail-table__label {
+    width: 220px;
+    color: #737373;
+}
+
+.attendance-detail-table__timeRange {
+    display: inline-flex;
+    padding: 0px 60px 0px 0px;
+    align-items: center;
+    gap: 12px;
+}
+
+.attendance-detail-table__timeInput {
+    width: 100px;
+    height: 28px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #000;
+    background: #fff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: center;
+    letter-spacing: 0.2em;
+}
+
+.attendance-detail-table__textarea {
+    width: 320px;
+    max-width: 100%;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 20px 12px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.attendance-detail-table__tilde{
+    padding: 0px 40px;
+}
+
+.attendance-detail__actions {
+    width: 900px;
+    max-width: 100%;
+    margin: 24px auto 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.attendance-detail__button {
+    width: 130px;
+    height: 50px;
+    background: #000;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+}
+
+.attendance-detail__button:hover {
+    opacity: 0.9;
+}
+
+/* 承認待ちで修正不可時 */
+.attendance-detail-table__timeInput:disabled,
+.attendance-detail-table__textarea:disabled {
+    border: none;
+        background: transparent;
+        outline: none;
+        cursor: default;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+}
