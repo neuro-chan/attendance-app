@@ -1,4 +1,3 @@
-
 .attendance-detail {
     max-width: 920px;
     margin: 0 auto;
@@ -35,18 +34,26 @@
     border-bottom: 2px solid #e5e5e5;
 }
 
-.attendance-detail-table__date { display: flex; align-items: center; gap: 75px; padding-left: 20px; }
-
+.attendance-detail-table__date {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    padding-left: 16px;
+}
 
 .attendance-detail-table__label,
 .attendance-detail-table__value {
     padding: 24px 0px 28px 52px;
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     letter-spacing: 0.2em;
     font-weight: 700;
     background: #fff;
     vertical-align: middle;
+}
+
+.attendance-detail-table__row:first-child td.attendance-detail-table__value {
+    padding-left: 72px;
 }
 
 .attendance-detail-table__label {
@@ -86,7 +93,7 @@
     resize: none;
 }
 
-.attendance-detail-table__tilde{
+.attendance-detail-table__tilde {
     padding: 0px 40px;
 }
 
@@ -114,15 +121,32 @@
     opacity: 0.9;
 }
 
+.attendance-detail__button--approved {
+    width: 130px;
+    height: 50px;
+    background: #696969;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+}
+
+.attendance-detail__button--approved:hover {
+    opacity: 0.9;
+}
+
+
 /* 承認待ちで修正不可時 */
 .attendance-detail-table__timeInput:disabled,
 .attendance-detail-table__textarea:disabled {
     border: none;
-        background: transparent;
-        outline: none;
-        cursor: default;
-        color: inherit;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
+    background: transparent;
+    outline: none;
+    cursor: default;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
 }

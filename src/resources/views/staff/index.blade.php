@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/components/shared/month-navigation.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/shared/nav-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components/shared/attendance-list-table.css') }}">
 @endsection
 

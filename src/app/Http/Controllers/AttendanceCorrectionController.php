@@ -22,9 +22,23 @@ class AttendanceCorrectionController extends Controller
     {
         $status = $request->query('status', 'pending');
 
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($user->isAdmin()) {
+            $corrections = AttendanceCorrection::with('attendance', 'user')
+                ->when($status === 'pending', fn($q) => $q->pending())
+                ->when($status === 'approved', fn($q) => $q->approved())
+                ->latest()
+                ->get();
+
+            return view('admin.request.index', compact('corrections', 'status'));
+        }
+
         $corrections = AttendanceCorrection::with('attendance')
-            ->where('user_id', Auth::id())
-            ->where('status', $status === 'pending' ? CorrectionStatus::Pending : CorrectionStatus::Approved)
+            ->where('user_id', $user->id)
+            ->when($status === 'pending', fn($q) => $q->pending())
+            ->when($status === 'approved', fn($q) => $q->approved())
             ->latest()
             ->get();
 
@@ -45,7 +59,7 @@ class AttendanceCorrectionController extends Controller
 
             return redirect()
                 ->route('request.index')
-                ->with('status', '修正申請を送信しました。');
+                ->with('status', '申請を承認しました。');
         } catch (DomainException $e) {
             return redirect()
                 ->back()

@@ -9,7 +9,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 
 // ----------------------------------------------------
-// ゲスト（未ログイン）
+// 未ログイン
 // ----------------------------------------------------
 Route::middleware('guest')->group(function () {
     Route::get('/login', fn() => view('auth.login', [
@@ -31,19 +31,20 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::middleware(EnsureUserIsAdmin::class)->name('admin.')->group(function () {
-        // 申請系（一般ユーザーと同一パス）先勝ち
-        Route::get('/stamp_correction_request/list',          [Admin\AttendanceCorrectionController::class, 'index'])->name('request.index');
-        Route::get('/stamp_correction_request/approve/{id}',  [Admin\AttendanceCorrectionController::class, 'approve'])->name('correction.approve');
-        Route::post('/stamp_correction_request/approve/{id}', [Admin\AttendanceCorrectionController::class, 'approveStore'])->name('correction.approve.store');
+        // スタッフと同一パス
+        Route::get('/stamp_correction_request/list',          [Admin\CorrectionApproveController::class, 'index'])->name('correction.index');
+        Route::get('/stamp_correction_request/approve/{id}',  [Admin\CorrectionApproveController::class, 'approve'])->name('correction.approve');
+        Route::post('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approveStore'])->name('correction.approve.store');
 
         // 管理者
         Route::prefix('admin')->group(function () {
+            Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
             Route::get('/attendance/list',              [Admin\AttendanceController::class, 'index'])->name('attendance.index');
             Route::get('/attendance/{id}',              [Admin\AttendanceController::class, 'show'])->name('attendance.show');
             Route::post('/attendance/{id}',             [Admin\AttendanceController::class, 'update'])->name('attendance.update');
             Route::get('/staff/list',                   [Admin\StaffController::class, 'index'])->name('staff.index');
             Route::get('/attendance/staff/{id}',        [Admin\StaffController::class, 'show'])->name('staff.attendance');
-            Route::get('/attendance/staff/{id}/export', [Admin\StaffController::class, 'export'])->name('staff.export');
+            Route::get('/attendance/staff/{id}/export', [Admin\StaffController::class, 'exportCsv'])->name('staff.export');
         });
     });
 
