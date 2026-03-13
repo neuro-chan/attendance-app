@@ -12,7 +12,6 @@ class SubmitCorrectionAction
 {
     public function handle(Attendance $attendance, User $user, array $data): AttendanceCorrection
     {
-        // 1. attendance_corrections に1件作成
         $correction = AttendanceCorrection::create([
             'attendance_id'       => $attendance->id,
             'user_id'             => $user->id,
@@ -22,7 +21,7 @@ class SubmitCorrectionAction
             'status'              => CorrectionStatus::Pending,
         ]);
 
-        // 2. break_corrections に休憩行数分作成
+        // break_corrections に休憩行数分作成
         foreach ($data['breaks'] ?? [] as $break) {
             // 両方空なら無視
             if (empty($break['break_start']) && empty($break['break_end'])) {

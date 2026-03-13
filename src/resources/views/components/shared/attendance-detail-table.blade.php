@@ -9,6 +9,8 @@
 
 <table class="attendance-detail-table">
     <tbody class="attendance-detail-table__body">
+
+        {{-- 名前 --}}
         <tr class="attendance-detail-table__row">
             <th class="attendance-detail-table__label">名前</th>
             <td class="attendance-detail-table__value">
@@ -16,6 +18,7 @@
             </td>
         </tr>
 
+        {{-- 日付 --}}
         <tr class="attendance-detail-table__row">
             <th class="attendance-detail-table__label">日付</th>
             <td class="attendance-detail-table__value">
@@ -31,6 +34,7 @@
             </td>
         </tr>
 
+        {{-- 出勤・退勤 --}}
         <tr class="attendance-detail-table__row">
             <th class="attendance-detail-table__label">出勤・退勤</th>
             <td class="attendance-detail-table__value">
@@ -53,15 +57,14 @@
             </td>
         </tr>
 
+        {{-- 既存の休憩 --}}
         @foreach ($breaks as $index => $break)
             <tr class="attendance-detail-table__row">
                 <th class="attendance-detail-table__label">
                     {{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}
                 </th>
                 <td class="attendance-detail-table__value">
-                    <input type="hidden"
-                        name="breaks[{{ $index }}][break_id]"
-                        value="{{ $break->id }}">
+                    <input type="hidden" name="breaks[{{ $index }}][break_id]" value="{{ $break->id }}">
                     <div class="attendance-detail-table__timeRange">
                         <input class="attendance-detail-table__timeInput" type="text"
                             name="breaks[{{ $index }}][break_start]"
@@ -84,6 +87,7 @@
             </tr>
         @endforeach
 
+        {{-- 新規追加用の休憩 --}}
         <tr class="attendance-detail-table__row">
             <th class="attendance-detail-table__label">
                 {{ $breaks->isEmpty() ? '休憩' : '休憩' . ($newIndex + 1) }}
@@ -92,12 +96,10 @@
                 <div class="attendance-detail-table__timeRange">
                     <input class="attendance-detail-table__timeInput" type="text"
                         name="breaks[{{ $newIndex }}][break_start]"
-                        value="{{ old("breaks.$newIndex.break_start") }}"
-                        @disabled($disabled)>
+                        value="{{ old("breaks.$newIndex.break_start") }}" @disabled($disabled)>
                     <span class="attendance-detail-table__tilde">〜</span>
                     <input class="attendance-detail-table__timeInput" type="text"
-                        name="breaks[{{ $newIndex }}][break_end]"
-                        value="{{ old("breaks.$newIndex.break_end") }}"
+                        name="breaks[{{ $newIndex }}][break_end]" value="{{ old("breaks.$newIndex.break_end") }}"
                         @disabled($disabled)>
                 </div>
 
@@ -110,15 +112,16 @@
             </td>
         </tr>
 
+        {{-- 備考 --}}
         <tr class="attendance-detail-table__row">
             <th class="attendance-detail-table__label">備考</th>
             <td class="attendance-detail-table__value">
-                <textarea class="attendance-detail-table__textarea" name="note" rows="2"
-                    @disabled($disabled)>{{ old('note', $attendance->note ?? '') }}</textarea>
+                <textarea class="attendance-detail-table__textarea" name="note" rows="2" @disabled($disabled)>{{ old('note', $attendance->note ?? '') }}</textarea>
                 @error('note')
                     <p class="error-text">{{ $message }}</p>
                 @enderror
             </td>
         </tr>
+
     </tbody>
 </table>

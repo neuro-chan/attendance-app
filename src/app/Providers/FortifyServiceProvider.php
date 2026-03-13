@@ -9,9 +9,11 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Http\Responses\LoginResponse;
+use App\Http\Responses\LogoutResponse;
 
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -25,9 +27,9 @@ class FortifyServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // カスタムLoginRequestをバインド
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
         $this->app->bind(LoginResponseContract::class, LoginResponse::class);
+        $this->app->bind(LogoutResponseContract::class, LogoutResponse::class);
     }
 
     public function boot(): void
@@ -37,7 +39,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        // メール認証画面（/email/verify = verification.notice）を自作ビューに差し替え
         Fortify::verifyEmailView(fn() => view('auth.verify-email'));
 
         RateLimiter::for('login', function (Request $request) {

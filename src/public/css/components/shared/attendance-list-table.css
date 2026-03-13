@@ -15,7 +15,7 @@
 }
 
 .attendance-table {
-    width: 900px;
+    min-width: 900px;
     box-sizing: border-box;
     margin: 0 auto;
     border-collapse: collapse;
@@ -29,8 +29,8 @@
     padding: 14px 16px;
     border-bottom: 2px solid #e5e5e5;
     text-align: center;
-    font-size: 16px;
-    letter-spacing: 0.2em;
+    font-size: 18px;
+    letter-spacing: 0.1em;
 }
 
 .attendance-table__header {
@@ -46,11 +46,38 @@
 .attendance-table__data {
     color: #737373;
     font-weight: 600;
-    letter-spacing: 0.2em;
 }
 
 .attendance-table__detail-link {
     color: #000;
     font-weight: 700;
     text-decoration: none;
+}
+
+.attendance-list__actions {
+    width: 900px;
+    max-width: 100%;
+    margin: 40px auto 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.attendance-list__button--export {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 160px;
+    height: 46px;
+    background: #000;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+}
+
+.attendance-list__button--export:hover {
+    opacity: 0.9;
 }

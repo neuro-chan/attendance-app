@@ -1,5 +1,4 @@
-
-.month-navigation {
+.nav-calendar {
     width: 900px;
     height: 60px;
     box-sizing: border-box;
@@ -12,32 +11,44 @@
     background: #fff;
 }
 
-.month-navigation__link {
+.nav-calendar__link {
     color: #737373;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: 0.1em;
     transition: color 0.2s ease;
 }
 
-.month-navigation__link:hover {
+.nav-calendar__link:hover {
     color: #000;
 }
 
-.month-navigation__current {
+.nav-calendar__current {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.month-navigation__text {
+.nav-calendar__text {
     font-size: 20px;
     font-weight: 700;
     color: #000;
 }
 
-.month-navigation__icon {
+.nav-calendar__icon {
     width: 25px;
     height: 25px;
+}
+
+.nav-left-arrow__icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.nav-right-arrow__icon {
+    width: 20px;
+    height: 15px;
+    margin-left: 5px;
 }
