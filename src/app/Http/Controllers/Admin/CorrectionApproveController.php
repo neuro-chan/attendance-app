@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\Correction\CorrectionApproveAction;
+use App\Http\Controllers\Controller;
 use App\Models\AttendanceCorrection;
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 
 class CorrectionApproveController extends Controller
 {
@@ -22,7 +21,6 @@ class CorrectionApproveController extends Controller
     }
 
     public function approveStore(int $id, CorrectionApproveAction $action): RedirectResponse
-
     {
         $correction = AttendanceCorrection::with('attendance', 'breakCorrections')
             ->findOrFail($id);

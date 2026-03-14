@@ -22,7 +22,7 @@ class StartBreakAction
 
         return BreakTime::create([
             'attendance_id' => $attendance->id,
-            'break_start'   => now(),
+            'break_start' => now(),
         ]);
     }
 }

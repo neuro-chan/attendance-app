@@ -21,11 +21,14 @@ class BreakCorrection extends Model
     {
         return [
             'requested_break_start' => 'datetime',
-            'requested_break_end'   => 'datetime',
+            'requested_break_end' => 'datetime',
         ];
     }
 
-    // Relation
+    // ========================
+    // リレーション
+    // ========================
+
     public function correction(): BelongsTo
     {
         return $this->belongsTo(AttendanceCorrection::class, 'correction_id');
@@ -36,7 +39,11 @@ class BreakCorrection extends Model
         return $this->belongsTo(BreakTime::class, 'break_id');
     }
 
-    // 新規追加された休憩か判定
+    // ========================
+    // 判定
+    // ========================
+
+    // break_idがnullの場合は修正申請で新規追加された休憩
     public function isNewBreak(): bool
     {
         return is_null($this->break_id);

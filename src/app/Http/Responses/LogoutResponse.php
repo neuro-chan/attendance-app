@@ -2,8 +2,8 @@
 
 namespace App\Http\Responses;
 
-use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
 use Illuminate\Http\RedirectResponse;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
 
 class LogoutResponse implements LogoutResponseContract
 {

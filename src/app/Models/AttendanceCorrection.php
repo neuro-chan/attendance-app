@@ -27,14 +27,17 @@ class AttendanceCorrection extends Model
     protected function casts(): array
     {
         return [
-            'requested_clock_in'  => 'datetime',
+            'requested_clock_in' => 'datetime',
             'requested_clock_out' => 'datetime',
-            'status'              => CorrectionStatus::class,
-            'approved_at'         => 'datetime',
+            'status' => CorrectionStatus::class,
+            'approved_at' => 'datetime',
         ];
     }
 
-    // Relation
+    // ========================
+    // リレーション
+    // ========================
+
     public function attendance(): BelongsTo
     {
         return $this->belongsTo(Attendance::class);
@@ -55,7 +58,10 @@ class AttendanceCorrection extends Model
         return $this->hasMany(BreakCorrection::class, 'correction_id');
     }
 
-    // Scope
+    // ========================
+    // スコープ
+    // ========================
+
     public function scopePending(Builder $query): Builder
     {
         return $query->where('status', CorrectionStatus::Pending);
@@ -66,7 +72,10 @@ class AttendanceCorrection extends Model
         return $query->where('status', CorrectionStatus::Approved);
     }
 
-    // 申請ステータス判定
+    // ========================
+    // ステータス判定
+    // ========================
+
     public function isPending(): bool
     {
         return $this->status === CorrectionStatus::Pending;

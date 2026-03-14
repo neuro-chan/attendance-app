@@ -26,7 +26,7 @@
 
 .attendance-table__header,
 .attendance-table__data {
-    padding: 14px 16px;
+    padding: 14px 0px;
     border-bottom: 2px solid #e5e5e5;
     text-align: center;
     font-size: 18px;
@@ -80,4 +80,18 @@
 
 .attendance-list__button--export:hover {
     opacity: 0.9;
+}
+
+.attendance-table__head .attendance-table__header:nth-child(1),
+.attendance-table__body .attendance-table__data:nth-child(1) {
+    width: 100px;
+    white-space: nowrap;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: left;
+}
+
+.attendance-table__head .attendance-table__header:nth-child(6),
+.attendance-table__body .attendance-table__data:nth-child(6) {
+    padding-right: 20px;
 }

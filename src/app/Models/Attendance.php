@@ -25,12 +25,15 @@ class Attendance extends Model
     {
         return [
             'work_date' => 'date',
-            'clock_in'  => 'datetime',
+            'clock_in' => 'datetime',
             'clock_out' => 'datetime',
         ];
     }
 
-    // Relation
+    // ========================
+    // リレーション
+    // ========================
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -46,8 +49,10 @@ class Attendance extends Model
         return $this->hasMany(AttendanceCorrection::class);
     }
 
+    // ========================
+    // スコープ
+    // ========================
 
-    // Scope
     public function scopeForMonth(Builder $query, int $year, int $month): Builder
     {
         return $query->whereYear('work_date', $year)
@@ -59,7 +64,14 @@ class Attendance extends Model
         return $query->where('work_date', $date);
     }
 
-    // 勤怠ステータス判定
+    // ========================
+    // 属性・判定
+    // ========================
+
+    /**
+     * 打刻状況から勤怠ステータスを判定する
+     * 未出勤 → 出勤中 → 休憩中 → 退勤済 の順で判定
+     */
     public function getStatusAttribute(): AttendanceStatus
     {
         if (is_null($this->clock_in)) {
@@ -71,10 +83,13 @@ class Attendance extends Model
         if ($this->breakTimes()->whereNull('break_end')->exists()) {
             return AttendanceStatus::OnBreak;
         }
+
         return AttendanceStatus::Working;
     }
 
-    // 申請判定
+    /**
+     * 承認待ちの修正申請が存在するか判定
+     */
     public function hasPendingRequest(): bool
     {
         return $this->corrections()->pending()->exists();

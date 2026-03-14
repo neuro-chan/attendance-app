@@ -11,20 +11,17 @@ class ExportCsvAction
     public function handle(User $staff, int $year, int $month): array
     {
         $start = CarbonImmutable::create($year, $month, 1)->startOfMonth();
-        $end   = $start->endOfMonth();
+        $end = $start->endOfMonth();
 
-        // その月の勤怠を取得して「日付キー」で引けるようにする
         $attendancesByDate = Attendance::with('breakTimes')
             ->where('user_id', $staff->id)
             ->whereBetween('work_date', [$start->toDateString(), $end->toDateString()])
             ->orderBy('work_date')
             ->get()
-            ->keyBy(fn(Attendance $a) => $a->work_date->toDateString());
+            ->keyBy(fn (Attendance $a) => $a->work_date->toDateString());
 
-        // 備考を削除
         $rows = [['日付', '出勤', '退勤', '休憩', '合計']];
 
-        // 月の全日を出力（勤怠が無い日は空欄）
         for ($d = $start; $d->lte($end); $d = $d->addDay()) {
             /** @var Attendance|null $attendance */
             $attendance = $attendancesByDate->get($d->toDateString());
@@ -37,6 +34,7 @@ class ExportCsvAction
                     if (! $break->break_start || ! $break->break_end) {
                         return 0;
                     }
+
                     return $break->break_start->diffInMinutes($break->break_end);
                 });
 

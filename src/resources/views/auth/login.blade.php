@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
 @endsection
 
+        {{-- 管理者ログインページかどうかで表示内容を出し分け --}}
 @section('content')
     @php
         $isAdminLogin = request()->is('admin/login');
@@ -18,6 +19,7 @@
         <form class="auth__form" method="POST" action="{{ $postUrl }}" novalidate>
             @csrf
 
+            {{-- メールアドレス --}}
             <div class="auth__field">
                 <label class="auth__label" for="email">メールアドレス</label>
                 <input
@@ -32,6 +34,7 @@
                 @enderror
             </div>
 
+            {{-- パスワード --}}
             <div class="auth__field">
                 <label class="auth__label" for="password">パスワード</label>
                 <input
@@ -48,6 +51,7 @@
             <button class="auth__button" type="submit">{{ $buttonText }}</button>
         </form>
 
+        {{-- 会員登録リンクはスタッフログインページのみ表示 --}}
         @unless ($isAdminLogin)
             <a class="auth__link" href="{{ url('/register') }}">会員登録はこちら</a>
         @endunless

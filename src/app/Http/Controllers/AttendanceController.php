@@ -6,16 +6,16 @@ use App\Actions\Attendance\ClockInAction;
 use App\Actions\Attendance\ClockOutAction;
 use App\Models\Attendance;
 use App\Models\User;
-use DomainException;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use DomainException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AttendanceController extends Controller
 {
-
+    // 勤怠一覧（月単位）
     public function index(Request $request): View
     {
         $currentMonth = $request->filled('month')
@@ -28,10 +28,10 @@ class AttendanceController extends Controller
             ->get();
 
         return view('staff.index', [
-            'attendances'      => $attendances,
-            'currentMonth'     => $currentMonth->format('Y/m'),
+            'attendances' => $attendances,
+            'currentMonth' => $currentMonth->format('Y/m'),
             'previousMonthUrl' => route('staff.index', ['month' => $currentMonth->copy()->subMonth()->format('Y-m')]),
-            'nextMonthUrl'     => route('staff.index', ['month' => $currentMonth->copy()->addMonth()->format('Y-m')]),
+            'nextMonthUrl' => route('staff.index', ['month' => $currentMonth->copy()->addMonth()->format('Y-m')]),
         ]);
     }
 
@@ -39,12 +39,12 @@ class AttendanceController extends Controller
     public function record(): View
     {
         $attendance = Attendance::firstOrNew([
-            'user_id'   => Auth::id(),
+            'user_id' => Auth::id(),
             'work_date' => today(),
         ]);
 
         $status = $attendance->status->value;
-        $now    = now();
+        $now = now();
 
         return view('staff.record', compact('attendance', 'status', 'now'));
     }
@@ -52,6 +52,7 @@ class AttendanceController extends Controller
     // 勤怠詳細
     public function show(int $id): View
     {
+        // 自分の勤怠のみ参照可能
         $attendance = Attendance::with('breakTimes')
             ->where('user_id', Auth::id())
             ->findOrFail($id);
@@ -76,9 +77,7 @@ class AttendanceController extends Controller
         } catch (DomainException $e) {
             return redirect()
                 ->route('attendance.record')
-                ->withErrors([
-                    'attendance' => $e->getMessage(),
-                ]);
+                ->withErrors(['attendance' => $e->getMessage()]);
         }
     }
 
@@ -97,9 +96,7 @@ class AttendanceController extends Controller
         } catch (DomainException $e) {
             return redirect()
                 ->route('attendance.record')
-                ->withErrors([
-                    'attendance' => $e->getMessage(),
-                ]);
+                ->withErrors(['attendance' => $e->getMessage()]);
         }
     }
 }

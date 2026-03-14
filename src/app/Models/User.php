@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -29,12 +29,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-            'role'              => UserRole::class,
+            'password' => 'hashed',
+            'role' => UserRole::class,
         ];
     }
 
-    // Relation
+    // ========================
+    // リレーション
+    // ========================
+
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
@@ -45,7 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AttendanceCorrection::class);
     }
 
-    // Role判定
+    // ========================
+    // ロール判定
+    // ========================
+
     public function isAdmin(): bool
     {
         return $this->role === UserRole::Admin;
