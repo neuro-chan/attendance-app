@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Attendance\ClockInAction;
 use App\Actions\Attendance\ClockOutAction;
+use App\Actions\Attendance\FillMonthlyAttendancesAction;
 use App\Models\Attendance;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,16 +17,13 @@ use Illuminate\View\View;
 class AttendanceController extends Controller
 {
     // 勤怠一覧（月単位）
-    public function index(Request $request): View
+    public function index(Request $request, FillMonthlyAttendancesAction $action): View
     {
         $currentMonth = $request->filled('month')
             ? Carbon::createFromFormat('Y-m', $request->string('month'))->startOfMonth()
             : Carbon::today()->startOfMonth();
 
-        $attendances = Attendance::where('user_id', Auth::id())
-            ->forMonth($currentMonth->year, $currentMonth->month)
-            ->orderBy('work_date')
-            ->get();
+        $attendances = $action->handle(Auth::id(), $currentMonth);
 
         return view('staff.index', [
             'attendances' => $attendances,

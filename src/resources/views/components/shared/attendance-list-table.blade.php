@@ -20,9 +20,9 @@
                 {{-- 名前 or 日付 --}}
                 <td class="attendance-table__data">
                     @if ($firstColumn === 'name')
-                        {{ $attendance->user->name }}
+                        {{ $attendance->user->name ?? '' }}
                     @else
-                        {{ ($attendance->work_date)->isoFormat('MM/DD(ddd)') }}
+                        {{ $attendance->work_date->isoFormat('MM/DD(ddd)') }}
                     @endif
                 </td>
                 <td class="attendance-table__data">
@@ -31,15 +31,18 @@
                 <td class="attendance-table__data">
                     {{ optional($attendance->clock_out)->format('H:i') }}
                 </td>
+                {{-- 勤怠データがない日は空欄 --}}
                 <td class="attendance-table__data">
-                    1:00
+                    {{ $attendance->id ? '1:00' : '' }}
                 </td>
                 <td class="attendance-table__data">
-                    8:00
+                    {{ $attendance->id ? '8:00' : '' }}
                 </td>
-                {{-- 詳細ページへのリンク --}}
+                {{-- 勤怠データがある日のみ詳細リンクを表示 --}}
                 <td class="attendance-table__data">
-                    <a href="{{ route($routeName, $attendance->id) }}" class="attendance-table__detail-link">詳細</a>
+                    @if ($attendance->id)
+                        <a href="{{ route($routeName, $attendance->id) }}" class="attendance-table__detail-link">詳細</a>
+                    @endif
                 </td>
             </tr>
         @endforeach
