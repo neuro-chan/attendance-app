@@ -23,9 +23,6 @@ return new class extends Migration
             $table->string('note', 255)->nullable();
             $table->timestamps();
             $table->unique(['user_id', 'work_date'], 'uq_attendances_user_date');
-
-            // 日付での検索が頻出なのでクエリ高速化のためにインデックスを付与
-            $table->index('work_date', 'idx_attendances_work_date');
         });
     }
 
