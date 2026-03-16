@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
@@ -74,6 +75,8 @@ class RegisterControllerTest extends TestCase
 
     public function test_フォームに内容が入力されていた場合データが正常に保存される(): void
     {
+        Notification::fake();
+
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
