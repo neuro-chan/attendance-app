@@ -3,6 +3,7 @@
 # =============================================================================
 .env*
 !.env.example
+!.env.testing.example
 /src/node_modules
 /src/public/build
 /src/public/hot
