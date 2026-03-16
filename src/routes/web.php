@@ -22,7 +22,6 @@ Route::middleware('guest')->group(function () {
         'postRoute' => url('/admin/login'),
     ]))->name('admin.login');
 
-    // 管理者ログイン（送信）※ Fortify 標準に無いので明示
     Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
 });
 
@@ -39,7 +38,7 @@ Route::middleware('auth')->group(function () {
     // 管理者（権限必須）
     // ----------------------------------------------------
     Route::middleware(EnsureUserIsAdmin::class)->name('admin.')->group(function () {
-        // 申請承認（同一パス要件）
+
         Route::get('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approve'])
             ->name('correction.approve');
 
@@ -74,6 +73,5 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendance/list', [AttendanceController::class, 'index'])->name('staff.index');
         Route::get('/attendance/detail/{id}', [AttendanceController::class, 'show'])->name('staff.show');
         Route::post('/attendance/detail/{id}', [AttendanceCorrectionController::class, 'store'])->name('correction.store');
-
     });
 });
