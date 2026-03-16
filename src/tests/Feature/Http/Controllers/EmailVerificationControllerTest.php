@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
@@ -16,6 +17,8 @@ class EmailVerificationControllerTest extends TestCase
     // ========================================
     public function test_会員登録後認証メールが送信される(): void
     {
+        Notification::fake();
+
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
@@ -28,7 +31,8 @@ class EmailVerificationControllerTest extends TestCase
 
         $user = User::where('email', 'test@example.com')->first();
         $this->assertNotNull($user);
-        $this->assertNull($user->email_verified_at);
+
+        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\VerifyEmail::class);
     }
 
     public function test_メール認証誘導画面で認証はこちらからボタンを押下するとメール認証サイトに遷移する(): void
