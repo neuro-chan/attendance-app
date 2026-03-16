@@ -45,10 +45,9 @@ class AttendanceCorrectionController extends Controller
         return view('staff.requests', compact('corrections', 'status'));
     }
 
-    // 修正申請の新規作成（スタッフ）
+    // 修正申請の新規作成
     public function store(UserCorrectionRequest $request, int $id, SubmitCorrectionAction $action): RedirectResponse
     {
-        // 自分の勤怠のみ申請可能
         $attendance = Attendance::where('user_id', Auth::id())
             ->findOrFail($id);
 

@@ -23,7 +23,7 @@ class AttendanceSeeder extends Seeder
         ])->get();
 
         $startDate = Carbon::create(2026, 2, 1);
-        $endDate   = Carbon::create(2026, 4, 30);
+        $endDate = Carbon::create(2026, 4, 30);
 
         foreach ($users as $user) {
             $current = $startDate->copy();
@@ -31,16 +31,16 @@ class AttendanceSeeder extends Seeder
             while ($current->lte($endDate)) {
                 if (! $current->isWeekend() && ! $current->isWednesday()) {
                     $attendance = Attendance::create([
-                        'user_id'   => $user->id,
+                        'user_id' => $user->id,
                         'work_date' => $current->toDateString(),
-                        'clock_in'  => $current->copy()->setTime(9, 0),
+                        'clock_in' => $current->copy()->setTime(9, 0),
                         'clock_out' => $current->copy()->setTime(18, 0),
                     ]);
 
                     BreakTime::create([
                         'attendance_id' => $attendance->id,
-                        'break_start'   => $current->copy()->setTime(12, 0),
-                        'break_end'     => $current->copy()->setTime(13, 0),
+                        'break_start' => $current->copy()->setTime(12, 0),
+                        'break_end' => $current->copy()->setTime(13, 0),
                     ]);
                 }
 

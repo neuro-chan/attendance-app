@@ -22,6 +22,7 @@ Route::middleware('guest')->group(function () {
         'postRoute' => url('/admin/login'),
     ]))->name('admin.login');
 
+    // 管理者ログイン（送信）※ Fortify 標準に無いので明示
     Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
 });
 
@@ -30,34 +31,49 @@ Route::middleware('guest')->group(function () {
 // ----------------------------------------------------
 Route::middleware('auth')->group(function () {
 
-    Route::middleware(EnsureUserIsAdmin::class)->name('admin.')->group(function () {
-        // スタッフと同一パス
-        Route::get('/stamp_correction_request/list', [Admin\CorrectionApproveController::class, 'index'])->name('correction.index');
-        Route::get('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approve'])->name('correction.approve');
-        Route::post('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approveStore'])->name('correction.approve.store');
+    // 同一パス要件
+    Route::get('/stamp_correction_request/list', [AttendanceCorrectionController::class, 'index'])
+        ->name('request.index');
 
-        // 管理者
+    // ----------------------------------------------------
+    // 管理者（権限必須）
+    // ----------------------------------------------------
+    Route::middleware(EnsureUserIsAdmin::class)->name('admin.')->group(function () {
+        // 申請承認（同一パス要件）
+        Route::get('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approve'])
+            ->name('correction.approve');
+
+        Route::post('/stamp_correction_request/approve/{id}', [Admin\CorrectionApproveController::class, 'approveStore'])
+            ->name('correction.approve.store');
+
+        // 管理者画面
         Route::prefix('admin')->group(function () {
             Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
             Route::get('/attendance/list', [Admin\AttendanceController::class, 'index'])->name('attendance.index');
             Route::get('/attendance/{id}', [Admin\AttendanceController::class, 'show'])->name('attendance.show');
             Route::post('/attendance/{id}', [Admin\AttendanceController::class, 'update'])->name('attendance.update');
+
             Route::get('/staff/list', [Admin\StaffController::class, 'index'])->name('staff.index');
             Route::get('/attendance/staff/{id}', [Admin\StaffController::class, 'show'])->name('staff.attendance');
             Route::get('/attendance/staff/{id}/export', [Admin\StaffController::class, 'exportCsv'])->name('staff.export');
         });
     });
 
+    // ----------------------------------------------------
     // スタッフ（メール認証必須）
+    // ----------------------------------------------------
     Route::middleware('verified')->group(function () {
         Route::get('/attendance', [AttendanceController::class, 'record'])->name('attendance.record');
         Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
         Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+
         Route::post('/attendance/break-start', [BreakController::class, 'start'])->name('attendance.break-start');
         Route::post('/attendance/break-end', [BreakController::class, 'end'])->name('attendance.break-end');
+
         Route::get('/attendance/list', [AttendanceController::class, 'index'])->name('staff.index');
         Route::get('/attendance/detail/{id}', [AttendanceController::class, 'show'])->name('staff.show');
         Route::post('/attendance/detail/{id}', [AttendanceCorrectionController::class, 'store'])->name('correction.store');
-        Route::get('/stamp_correction_request/list', [AttendanceCorrectionController::class, 'index'])->name('request.index');
+
     });
 });
