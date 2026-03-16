@@ -105,6 +105,32 @@ https://docs.google.com/spreadsheets/d/17p-jmsXQr_Es3-n9rn6ox_B9ifDG317RwXj7JBGV
 
 &nbsp;
 
+### ディレクトリ構成（主要）
+```
+├── app
+│   ├── Actions      # ビジネスロジック（打刻・申請・承認など）
+│   ├── Enums        # 定数グループ（ステータスやロールなど）
+│   ├── Helpers      # 汎用処理（日付と時刻の結合）
+│   ├── Http         # Controllers, Middleware, FormRequests
+│   ├── Models       # Eloquentモデル
+│   └── Providers    # Fortify設定など
+├── database
+│   ├── factories    # テスト用ダミーデータ生成
+│   ├── migrations   # テーブル定義・スキーマ管理
+│   └── seeders      # 初期データ投入
+├── public
+│   ├── css          # スタイルシート
+│   └── img          # 画像ファイル
+├── resources
+│   └── views        # Bladeテンプレート
+├── routes
+│   └── web.php      # ルーティング定義
+└── tests
+    └── Feature      # テスト（PHPUnit）
+
+```
+&nbsp;
+
 ## 動作確認用URL
 
 - スタッフログインページ: http://localhost/login
