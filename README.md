@@ -119,6 +119,7 @@ https://docs.google.com/spreadsheets/d/17p-jmsXQr_Es3-n9rn6ox_B9ifDG317RwXj7JBGV
 | ユーザー名 | メールアドレス | パスワード | 備考 |
 |---|---|---|---|
 | test01 | testuser1@example.com | password | 表示確認用一般ユーザー |
+| test02 | testuser2@example.com | password | 打刻動作確認用ユーザー |
 | 管理者 | admin@example.com | adminpassword | 表示確認用管理者ユーザー |
 
 &nbsp;
