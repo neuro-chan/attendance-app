@@ -12,9 +12,8 @@ init:
 	docker compose exec -T php php artisan migrate:fresh --seed
 	docker compose exec -T php chown -R www-data:www-data storage bootstrap/cache || true
 	docker compose exec -T php chmod -R 775 storage bootstrap/cache
-	docker compose exec -T php rm -f public/storage
-	docker compose exec -T php php artisan storage:link
 	@echo "初期セットアップ完了"
+	
 
 test:
 	@if [ ! -f src/.env.testing ]; then cp src/.env.testing.example src/.env.testing; fi
