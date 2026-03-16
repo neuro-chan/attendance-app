@@ -56,8 +56,12 @@ make init
 このプロジェクトでは開発環境のメール送信先としてMailtrapを使用しています。
 
 1. [Mailtrap](https://mailtrap.io/) にログイン
-2. My Sandboxを作成して認証情報を取得（[参考リンク](https://docs.mailtrap.io/getting-started/email-sandbox)）
-3. `.env` にMAIL_USERNAMEとMAIL_PASSWORDを設定してください。
+2. My Sandboxを作成してメールボックスへアクセス
+3. Integrations -> Code Samples から 「PHP Laravel 9.x」を選択
+4. 右上のCopyボタンを使って「MAIL_MAILER」から「MAIL_PASSWORD」までの項目をコピーし`.env` に設定してください。
+&nbsp;
+
+※[公式ドキュメント](https://docs.mailtrap.io/getting-started/email-sandbox)
 
 ```env
 MAIL_MAILER=smtp
@@ -65,9 +69,9 @@ MAIL_HOST=YOUR_MAILTRAP_HOST
 MAIL_PORT=YOUR_MAILTRAP_PORT
 MAIL_USERNAME=YOUR_MAILTRAP_USERNAME
 MAIL_PASSWORD=YOUR_MAILTRAP_PASSWORD
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS="no-reply@example.com"
-MAIL_FROM_NAME="${APP_NAME}"
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=test@example.com
+MAIL_FROM_NAME="Local"
 ```
 &nbsp;
 
